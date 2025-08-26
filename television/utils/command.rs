@@ -10,9 +10,11 @@ use lazy_regex::{Lazy, Regex, regex};
 use rustc_hash::FxHashSet;
 use std::{
     collections::HashMap,
-    os::unix::process::CommandExt,
     process::{Command, ExitStatus, Stdio},
 };
+
+#[cfg(unix)]
+use std::os::unix::process::CommandExt;
 use tracing::debug;
 
 static COMPLEX_BRACES_REGEX: &Lazy<Regex> = regex!(r"\{[^}]+\}");
@@ -172,9 +174,21 @@ pub fn execute_action(
 
     match action_spec.mode {
         ExecutionMode::Execute => {
-            let err = cmd.exec();
-            eprintln!("Failed to execute command: {}", err);
-            Err(err.into())
+            #[cfg(unix)]
+            {
+                let err = cmd.exec();
+                eprintln!("Failed to execute command: {}", err);
+                Err(err.into())
+            }
+            #[cfg(not(unix))]
+            {
+                // Windows下使用spawn+wait替代exec
+                cmd.stdin(Stdio::inherit())
+                    .stdout(Stdio::inherit())
+                    .stderr(Stdio::inherit());
+                let mut child = cmd.spawn()?;
+                Ok(child.wait()?)
+            }
         }
         ExecutionMode::Fork => {
             cmd.stdin(Stdio::inherit())
