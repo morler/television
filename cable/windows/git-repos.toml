@@ -8,7 +8,7 @@ This channel uses `fd` to find directories that contain a `.git` subdirectory, a
 """
 
 [source]
-command = "fd -g .git -HL -t d -d 10 --prune 'C:\\Users' --exec dirname '{}'"
+command = "fd -g .git -HL -t d -d 10 --exec dirname '{}'"
 display = "{split:\\\\:-1}"
 
 [preview]

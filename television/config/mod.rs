@@ -299,7 +299,21 @@ pub fn get_config_dir() -> PathBuf {
     } else if let Some(proj_dirs) = project_directory() {
         proj_dirs.config_local_dir().to_path_buf()
     } else {
-        PathBuf::from("../../../../..").join("../../../../../.config")
+        // Fallback for when project directories are not available
+        #[cfg(windows)]
+        {
+            env::var("USERPROFILE")
+                .map(|p| PathBuf::from(p).join("AppData\\Local\\television"))
+                .unwrap_or_else(|_| {
+                    PathBuf::from(
+                        "C:\\Users\\Default\\AppData\\Local\\television",
+                    )
+                })
+        }
+        #[cfg(not(windows))]
+        {
+            PathBuf::from("../../../../..").join(".config")
+        }
     }
 }
 

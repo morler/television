@@ -136,7 +136,7 @@ impl Clipboard {
         use clipboard_win::{formats, set_clipboard};
 
         let s = s.as_ref().to_owned();
-        *self.content.lock() = s.clone();
+        (*self.content.lock()).clone_from(&s);
 
         tokio::task::spawn_blocking(move || {
             set_clipboard(formats::Unicode, s.to_string_lossy())
