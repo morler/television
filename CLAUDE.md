@@ -19,6 +19,7 @@ All development commands are managed through `just` (justfile):
 - `just format` - Format code using cargo fmt
 - `just lint` - Lint code using cargo clippy with warnings as errors
 - `just clean` - Clean up build artifacts and git hooks
+- `just update-channels` - Update community channel configurations
 
 ### Testing specific functionality:
 - `cargo test --test [test_name]` - Run specific test file
@@ -30,6 +31,7 @@ All development commands are managed through `just` (justfile):
 2. Make changes
 3. `just fix` - Auto-fix issues before commit
 4. `just test` - Verify functionality
+5. `just check` - Final validation before commit
 
 ## Architecture Overview
 
@@ -74,6 +76,10 @@ All components communicate via async channels to maintain responsiveness.
 - `television/app.rs` - Application orchestrator
 - `television/television.rs` - Core state management
 - `justfile` - Development commands and build scripts
+- `cable/unix/` - Unix/Linux channel configurations
+- `cable/windows/` - Windows-specific channel configurations
+- `themes/` - UI theme definitions
+- `tests/` - Integration and unit tests
 
 ## Channel Development
 
@@ -108,6 +114,9 @@ Channels are the extensible data sources. To create a new channel:
 - **CLI Parsing**: clap with derive features
 - **Configuration**: toml, serde
 - **Cross-platform**: Platform-specific crossterm features
+- **Windows Support**: winapi-util, clipboard-win for Windows-specific functionality
+- **Build System**: clap_mangen for man page generation
+- **Current Version**: 0.13.3 (Rust Edition 2024)
 
 ## Testing Guidelines
 
@@ -118,5 +127,15 @@ The project has comprehensive integration tests in `tests/` covering:
 - UI behavior
 - Preview system
 - Remote control
+- Cross-platform path handling
+- Command execution modes
+- Async event handling
 
 Run tests with output using `just test` to see detailed results.
+
+### Test Coverage:
+- Unit tests for core modules
+- Integration tests for full application workflow
+- Cross-platform compatibility tests
+- Performance benchmarks with criterion
+- Windows-specific path handling tests

@@ -1,7 +1,7 @@
 <div align="center">
 
 [<img src="./assets/television-title.png">](https://alexpasmantier.github.io/television/)  
-**A cross-platform, fast and extensible general purpose fuzzy finder for the terminal.**
+**A cross-platform, fast and extensible general purpose fuzzy finder TUI.**
 
 ![GitHub Release](https://img.shields.io/github/v/release/alexpasmantier/television?display_name=tag&color=%23a6a)
 ![docs.rs](https://img.shields.io/docsrs/television-channels)
@@ -17,8 +17,9 @@
 
 `Television` is a cross-platform, fast and extensible fuzzy finder for the terminal.
 
-It integrates with your shell and lets you quickly search through any kind of data source (files, git repositories, environment variables, docker
-images, you name it) using a fuzzy matching algorithm and is designed to be extensible.
+It integrates with your shell and lets you quickly search through any kind of data source (files, git repositories, environment variables, docker images, you name it) using a fuzzy matching algorithm and is designed to be extensible.
+
+**Television v0.13.3** supports both Unix/Linux and Windows platforms with native command integration and comprehensive channel system.
 
 It is inspired by the neovim [telescope](https://github.com/nvim-telescope/telescope.nvim) plugin and leverages [tokio](https://github.com/tokio-rs/tokio) and the [nucleo](https://github.com/helix-editor/nucleo) matcher used by the [helix](https://github.com/helix-editor/helix) editor to ensure optimal performance.
 
@@ -69,8 +70,7 @@ tv files
 
 ![tv files](./assets/tv-transparent.png)
 
-Switch channels using the remote control and pick from a list of [community-maintained channels](https://alexpasmantier.github.io/television/docs/Users/community-channels-unix) which
-you can install with `tv update-channels`:
+Switch channels using the remote control and pick from a list of [community-maintained channels](https://alexpasmantier.github.io/television/docs/Users/community-channels-unix) which you can install with `tv update-channels`. Television includes both Unix/Linux and Windows-specific channel configurations:
 
 ![tv remote](./assets/tv-files-remote.png)
 
@@ -93,7 +93,13 @@ tv --source-command 'fd -t f .' --preview-command 'bat -n --color=always {}' --p
 ```
 
 > [!TIP]
-> 🐚 _Television has **builtin shell integration**. More info [here](https://alexpasmantier.github.io/television/docs/Users/shell-integration)._
+> 🐚 _Television has **builtin shell integration** for all major shells (bash, zsh, fish, powershell). More info [here](https://alexpasmantier.github.io/television/docs/Users/shell-integration)._
+
+## Platform Support
+
+- **Unix/Linux**: Full native support with optimized channel configurations
+- **Windows**: Native Windows support with PowerShell integration and Windows-specific commands  
+- **Cross-platform**: Consistent experience across all supported platforms
 
 ## Credits
 
